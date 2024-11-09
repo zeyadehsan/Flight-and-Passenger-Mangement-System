@@ -1,0 +1,13 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "C/C++ Runner: Debug Session",
+      "type": "lldb",
+      "request": "launch",
+      "args": [],
+      "cwd": "/Users/zeyadehsan/CPP/Flight_and_passenger_Mangment/Flight-and-Passenger-Mangement-System",
+      "program": "/Users/zeyadehsan/CPP/Flight_and_passenger_Mangment/Flight-and-Passenger-Mangement-System/build/Debug/outDebug"
+    }
+  ]
+}
