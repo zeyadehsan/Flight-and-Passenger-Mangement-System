@@ -1,5 +1,6 @@
 #include<iostream>
 #include "passenger.h"
+#include "flight.h"
 using namespace std;
 
 int Passenger::totalPassengers = 0;
@@ -13,18 +14,18 @@ Passenger::~Passenger(){
   cout<< "Passenger : " << NameOfPassenger << " has been removed."<<endl;
 }
 //Func
-void passenger::displayPassengerDetalils(){
-cout<< "Passenger's name : " << NameOfPassenger<<endl;
-cout<< "Passenger ID : " <<passenger_id<<endl;
+void Passenger::displayPassengerDetalils(){
+    cout<< "Passenger's name : " << NameOfPassenger<<endl;
+    cout<< "Passenger ID : " <<passenger_id<<endl;
 }
-istream& operator>>(istream & in ,const Passenger& p){
-cout<< "Enter Your name : "
-in>> p.NameOfPassenger;
-cout<<endl;
-cout<< "Enter Your ID : "
-in>> p.passenger_id;
-return in;
+istream &operator >> (istream &strm , Passenger& p){
+    cout<< "Enter Your name : ";
+    strm >> p.NameOfPassenger;
+    cout<<endl;
+    cout<< "Enter Your ID : ";
+    strm >> p.passenger_id;
+    return strm;
 }
 int Passenger::getTotalPassengers(){
-return totalPassengers
+    return totalPassengers;
 }

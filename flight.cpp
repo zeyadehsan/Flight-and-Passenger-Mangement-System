@@ -75,9 +75,35 @@ bool Flight::searchSeatNo(){
 }
 // operator overloading Func
 ostream &operator << (ostream &strm, const Flight &obj){
+    strm<<" FLight Number: "<<obj.no_of_flight<<endl;
+    strm<<" FLight Seating Capacity: "<<obj.seating_capacity<<endl;
+    strm<<" FLight Current Number of Booked Seats : "<<obj.current_no_booked_seats<<endl;
+    for(int i = 0; i<obj.seating_capacity;i++){
+        strm<<" FLight Passengers Name: "<<obj.no_of_flight<<endl;
+    }
+    // for displaying seating plan
+    for (int i = 0; i < obj.rows; ++i) {
+        for (int j = 0; j < obj.seats_per_row; ++j) {
+            strm<<obj.seating_plan[i][j];
+        }
+    }
+    strm<<" FLight : "<<obj.no_of_flight<<endl;
+
 
 }
+// int no_of_flight,  seating_capacity,  current_no_booked_seats;
+//         string flight_destination,  dep_time_zone; 
+//         string * passengers_names;
+//         int rows, seats_per_row;
+//         string ** seating_plan;
+// Flight::Flight(int seat_c, int no_of_f, string flight_d): seating_capacity(seat_c), no_of_flight(no_of_f), flight_destination(flight_d) { 
+//     //intilizing the rest of attributes
+//     current_no_booked_seats = 0;
+//     dep_time_zone = "";
+//     passengers_names = new string[current_no_booked_seats];
+//     seating_plan[4][4];
 
-
+ //Friend operator<< Overloading: Allows for the easy printing of all of flight details
+//ncluding its seating plan, and its passengers’ names
 
 

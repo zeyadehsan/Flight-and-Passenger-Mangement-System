@@ -16,7 +16,8 @@ class Passenger{
     ~Passenger();
     //Func
     void displayPassengerDetalils();
-    friend istream& operator>>(istream & in ,const Passenger& p);
+    friend istream & operator >> (istream & strm ,Passenger & p);
+    friend bool searchPassengerName();
     static int getTotalPassengers();
 
 };
