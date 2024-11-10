@@ -44,6 +44,17 @@ Flight::Flight(const Flight & obj){
 
 }
 
+//destructor
+Flight::~Flight(){
+    delete [] passengers_names;
+    for (int i = 0; i < rows; ++i) {
+        delete[] seating_plan[i];  
+    }
+    delete[] seating_plan;
+
+}
+
+
 void Flight::displaySeatingPlan(){  
 }
 
@@ -60,6 +71,10 @@ bool Flight::searchPassengerName(){
 
 }
 bool Flight::searchSeatNo(){
+
+}
+// operator overloading Func
+ostream &operator << (ostream &strm, const Flight &obj){
 
 }
 
