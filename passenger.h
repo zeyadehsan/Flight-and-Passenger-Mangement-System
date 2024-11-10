@@ -9,14 +9,16 @@ class Passenger{
     int passenger_id;
     static int totalPassengers;
     public:
+
     //Two argument constructor
     Passenger(string name_of_p,int id);
     //Destructor
     ~Passenger();
     //Func
     void displayPassengerDetalils();
+    friend istream& operator>>(istream & in ,const Passenger& p);
     static int getTotalPassengers();
-    friend istream& operator>>(istream & in ,Passenger& p);
+
 };
 
 
