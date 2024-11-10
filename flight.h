@@ -1,6 +1,7 @@
 #ifndef FLIGHT_H
 #define FLIGHT_H
 #include<iostream>
+#include "passenger.h"
 using namespace std;
 
 
@@ -26,10 +27,10 @@ class Flight{
         ~Flight();
         //Func
         void displaySeatingPlan();
-        void addPassenger();
-        void removePassenger();
+        void addPassenger(string &name);
+        void removePassenger(const string &name);
         void displayFlightDetalils();
-        bool searchPassengerName();
+        bool searchPassengerName(const string & Name_Passenger);
         bool searchSeatNo();
         //operator overloading funcs??
         friend ostream &operator << (ostream &strm, const Flight &obj);

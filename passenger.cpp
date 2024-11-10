@@ -1,6 +1,5 @@
 #include<iostream>
 #include "passenger.h"
-#include "flight.h"
 using namespace std;
 
 int Passenger::totalPassengers = 0;
