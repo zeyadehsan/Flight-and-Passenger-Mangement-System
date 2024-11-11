@@ -33,12 +33,12 @@ class Flight{
         void displayFlightDetalils();
         bool searchPassengerName(const string & name_Passenger);
         //missing func 
-        bool searchSeatNo();
+        bool searchSeatNo(int i , int j);
 
         //operator overloading funcs??
         friend ostream &operator << (ostream &strm, const Flight &obj);
         Flight& operator++();
-        Flight& operator+=(const Passenger & obj);
+        Flight& operator+=( Passenger & obj);
         Flight& operator--(int);
         Flight& operator-=(const int  num_Passengers);
        

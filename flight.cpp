@@ -125,7 +125,15 @@ bool Flight::searchPassengerName(const string & name_Passenger){
         return false;
     }
 
-bool Flight::searchSeatNo(){
+bool Flight::searchSeatNo(int row , int seat){
+    if(seating_plan[row][seat] == "X"){
+        cout << "The seat at row " <<  row + 1 << " and seat " << seat + 1 << " is reserved." << endl;
+        return true;
+    }
+    else{
+        return false;
+    }
+
 
 }
 // operator overloading Func
@@ -150,24 +158,46 @@ Flight& Flight::operator++(){
 //Operator++ overloading: Allows expanding the flight capacity by adding a new
 //row of seats to the flight. The ++ operator should be supported using the prefix
 //notation.
+    string ** new_seating_plan = new string *[rows + 1] ;
+
+    for(int i = 0; i < rows ;i++){
+        new_seating_plan[i] = seating_plan[i];
+    }
+    new_seating_plan[rows] = new string[seats_per_row];
+        for (int j = 0; j < seats_per_row; ++j) {
+            new_seating_plan[rows][j] = "O"; 
+        }
+
+    seating_plan = new_seating_plan;
+    ++rows; // Increment the number of rows
+    seating_capacity += seats_per_row; // Update seating capacity
+    cout << "Added a new row. Total rows: " << rows << ", Total capacity: " << seating_capacity << endl;
 
 }
 
-Flight& Flight::operator+=(const Passenger& obj){
+Flight& Flight::operator+=( Passenger& passenger){
     // add passenger name 
     if (current_no_booked_seats < seating_capacity) { 
-          // passengers_names[current_no_booked_seats] = obj.NameOfPassenger; 
-           //increment current_no_booked_seats
-           current_no_booked_seats++;
-
-        //cout << "Added passenger: " << obj.NameOfPassenger << endl;
-        } else {
+        passengers_names[current_no_booked_seats] = passenger.getPassengerName();
+        //increment current_no_booked_seats
+        ++current_no_booked_seats;
+        cout << "Added passenger: " << passenger.getPassengerName() << endl;
+    // update seating plan 
+    bool seat_found = false;
+            for (int i = 0; i < rows && !seat_found; ++i) {
+                for (int j = 0; j < seats_per_row && !seat_found; ++j) {
+                    if (seating_plan[i][j] == "O") {
+                        seating_plan[i][j] = "X"; // Mark as occupied
+                        seat_found = true;
+                        cout << "Assigned seat: Row " << i + 1 << ", Seat " << j + 1 << endl;
+                    }
+                }
+            }
+    }
+    else {
             cout << "No more space to add new passengers." << endl;
         }
     return *this;
-    // update seating plan 
-    // update seating_capacit if nuber of added over
-
 }
 
 Flight& Flight::operator--(int){

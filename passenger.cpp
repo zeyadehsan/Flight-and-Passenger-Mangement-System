@@ -17,6 +17,9 @@ void Passenger::displayPassengerDetalils(){
     cout<< "Passenger's name : " << NameOfPassenger<<endl;
     cout<< "Passenger ID : " <<passenger_id<<endl;
 }
+string Passenger::getPassengerName(){
+    return NameOfPassenger;
+}
 istream& operator >> (istream& strm , Passenger& p){
     cout<< "Enter Your name : ";
     strm >> p.NameOfPassenger;
