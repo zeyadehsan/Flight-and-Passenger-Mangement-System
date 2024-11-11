@@ -72,6 +72,7 @@ void Flight::addPassenger(string &name){
         } else {
             cout << "No more space to add new passengers." << endl;
         }
+        // reserve seat in seating plan 2d array 
 }
 
 void Flight::removePassenger(const string &name){
@@ -115,14 +116,15 @@ void Flight::displayFlightDetalils(){
 
 }
 
-bool Flight::searchPassengerName(const string & Name_Passenger){
+bool Flight::searchPassengerName(const string & name_Passenger){
         for (int i = 0; i < current_no_booked_seats; ++i) {
-            if (passengers_names[i] == Name_Passenger) {
+            if (passengers_names[i] == name_Passenger) {
                 return true;
             }
         }
         return false;
     }
+
 bool Flight::searchSeatNo(){
 
 }
@@ -144,5 +146,56 @@ ostream &operator << (ostream &strm, const Flight &obj){
 
 }
 
+Flight& Flight::operator++(){
+//Operator++ overloading: Allows expanding the flight capacity by adding a new
+//row of seats to the flight. The ++ operator should be supported using the prefix
+//notation.
+
+}
+
+Flight& Flight::operator+=(const Passenger& obj){
+    // add passenger name 
+    if (current_no_booked_seats < seating_capacity) { 
+          // passengers_names[current_no_booked_seats] = obj.NameOfPassenger; 
+           //increment current_no_booked_seats
+           current_no_booked_seats++;
+
+        //cout << "Added passenger: " << obj.NameOfPassenger << endl;
+        } else {
+            cout << "No more space to add new passengers." << endl;
+        }
+    return *this;
+    // update seating plan 
+    // update seating_capacit if nuber of added over
+
+}
+
+Flight& Flight::operator--(int){
+    
+    if(current_no_booked_seats > 0){
+        passengers_names[current_no_booked_seats - 1] = ""; 
+        --current_no_booked_seats;
+        string removedPassenger = passengers_names[current_no_booked_seats - 1];
+        cout << "Removed Last passenger: " << removedPassenger << endl;
+    }
+    else {
+        cout << "No passengers to remove!" << endl;
+    }
+   
+        return *this; 
+
+}
+// not sure if output correct
+Flight& Flight::operator-=(const int num_Passengers){
+
+    //in case the argument (num_Passengers) passed is more than size of array (current_no_booked_seats)
+    int passengers_to_remove = min(num_Passengers, current_no_booked_seats);
+    for(int i = (current_no_booked_seats - passengers_to_remove);i<current_no_booked_seats;i++){
+        passengers_names[i] = ""; 
+        --current_no_booked_seats;
+    }
+    cout << "Removed " << passengers_to_remove << " passengers." << endl;
+        return *this; 
+}
 
 

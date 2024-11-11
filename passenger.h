@@ -1,6 +1,7 @@
 #ifndef PASSENGER_H
 #define PASSENGER_H
 #include<iostream>
+#include "flight.h"
 using namespace std;
 
 class Passenger{
@@ -16,7 +17,7 @@ class Passenger{
     ~Passenger();
     //Func
     void displayPassengerDetalils();
-    friend istream & operator >> (istream & strm ,Passenger & p);
+    friend istream& operator >> (istream & strm ,Passenger & p);
     friend bool searchPassengerName();
     static int getTotalPassengers();
 

@@ -25,19 +25,22 @@ class Flight{
         Flight(const Flight &obj);
         //Destructor
         ~Flight();
+
         //Func
         void displaySeatingPlan();
         void addPassenger(string &name);
         void removePassenger(const string &name);
         void displayFlightDetalils();
-        bool searchPassengerName(const string & Name_Passenger);
+        bool searchPassengerName(const string & name_Passenger);
+        //missing func 
         bool searchSeatNo();
+
         //operator overloading funcs??
         friend ostream &operator << (ostream &strm, const Flight &obj);
-        // Flight operator++();
-        // Flight operator--();
-        // Flight operator-=();
-
+        Flight& operator++();
+        Flight& operator+=(const Passenger & obj);
+        Flight& operator--(int);
+        Flight& operator-=(const int  num_Passengers);
        
 };
  
