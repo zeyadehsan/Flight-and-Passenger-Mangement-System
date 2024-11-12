@@ -10,7 +10,7 @@ Passenger::Passenger(string name_of_p,int id):NameOfPassenger(name_of_p),passeng
 //Destructor
 Passenger::~Passenger(){
   totalPassengers--;
-  cout<< "Passenger : " << NameOfPassenger << " has been removed."<<endl;
+
 }
 //Func
 void Passenger::displayPassengerDetalils(){

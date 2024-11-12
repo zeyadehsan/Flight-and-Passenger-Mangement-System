@@ -6,10 +6,8 @@ using namespace std;
 
 
 
-//For << operator to work in class it needs to be prototyped outside class
-// class Flight; 
-// ostream &operator << (ostream &strm , const Flight &obj); 
 
+class Passenger; 
 
 class Flight{
     private:
@@ -26,23 +24,24 @@ class Flight{
         //Destructor
         ~Flight();
 
+
         //Func
         void displaySeatingPlan();
-        void addPassenger(string &name);
+        void addPassenger(string name);
         void removePassenger(const string &name);
+
         void displayFlightDetalils();
-        bool searchPassengerName(const string & name_Passenger);
-        //missing func 
-        bool searchSeatNo(int i , int j);
+
+        bool searchPassengerName(const string name_Passenger);
+        bool searchSeatNo(int row , int seat);
 
         //operator overloading funcs??
         friend ostream &operator << (ostream &strm, const Flight &obj);
         Flight& operator++();
-        Flight& operator+=( Passenger & obj);
+        Flight& operator+=( Passenger& obj);
         Flight& operator--(int);
         Flight& operator-=(const int  num_Passengers);
        
 };
  
-
 #endif

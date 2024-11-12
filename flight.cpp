@@ -4,21 +4,26 @@
 using namespace std;
 
 //Three argument constructor  
-Flight::Flight(int seat_c, int no_of_f, string flight_d): seating_capacity(seat_c), no_of_flight(no_of_f), flight_destination(flight_d) { 
-    //intilizing the rest of attributes
+Flight::Flight(int seat_c, int no_of_f, string flight_d)
+        : seating_capacity(seat_c), no_of_flight(no_of_f), flight_destination(flight_d) {
+    // Initializing the rest of attributes
     current_no_booked_seats = 0;
     dep_time_zone = "";
-    passengers_names = new string[current_no_booked_seats];
-    seating_plan[4][4];
+    rows = seat_c / 4; // Assuming 4 seats per row
+    seats_per_row = 4;
+    passengers_names = new string[seating_capacity];
+    seating_plan = new string*[rows];
 
-    //initialize all seats as nonreserved(open 'o')
-    int rows,seats_per_row = 4;
+    // Initialize all seats as non-reserved (open 'O')
     for (int i = 0; i < rows; ++i) {
+        seating_plan[i] = new string[seats_per_row];
         for (int j = 0; j < seats_per_row; ++j) {
-            seating_plan[i][j] = 'O';
+            seating_plan[i][j] = "O";
         }
     }
 }
+
+
 
 //copy constructor
 Flight::Flight(const Flight & obj){
@@ -56,16 +61,18 @@ Flight::~Flight(){
 }
 
 
+
 void Flight::displaySeatingPlan(){  
     for (int i = 0; i <rows; ++i) {
         for (int j = 0; j < seats_per_row; ++j) {
             cout<<seating_plan[i][j];
         }
+        cout<<endl;
     }
 
 }
 
-void Flight::addPassenger(string &name){
+void Flight::addPassenger(string name){
    if ( current_no_booked_seats < seating_capacity) { 
            passengers_names[current_no_booked_seats] = name; 
            current_no_booked_seats++;
@@ -104,7 +111,7 @@ void Flight::displayFlightDetalils(){
     cout<<" FLight Number: "<<no_of_flight<<endl;
     cout<<" FLight Seating Capacity: "<<seating_capacity<<endl;
     cout<<" FLight Current Number of Booked Seats : "<<current_no_booked_seats<<endl;
-    for(int i = 0; i<seating_capacity;i++){
+    for(int i = 0; i<current_no_booked_seats;i++){
         cout<<" FLight Passengers Name: "<<no_of_flight<<endl;
     }
     // for displaying seating plan
@@ -112,11 +119,12 @@ void Flight::displayFlightDetalils(){
         for (int j = 0; j < seats_per_row; ++j) {
             cout<<seating_plan[i][j];
         }
+        cout<<endl;
     }
 
 }
 
-bool Flight::searchPassengerName(const string & name_Passenger){
+bool Flight::searchPassengerName(const string  name_Passenger){
         for (int i = 0; i < current_no_booked_seats; ++i) {
             if (passengers_names[i] == name_Passenger) {
                 return true;
@@ -150,6 +158,7 @@ ostream &operator << (ostream &strm, const Flight &obj){
             strm<<obj.seating_plan[i][j];
         }
     }
+    return strm;
    
 
 }
@@ -172,6 +181,7 @@ Flight& Flight::operator++(){
     ++rows; // Increment the number of rows
     seating_capacity += seats_per_row; // Update seating capacity
     cout << "Added a new row. Total rows: " << rows << ", Total capacity: " << seating_capacity << endl;
+    return *this;
 
 }
 
@@ -225,7 +235,5 @@ Flight& Flight::operator-=(const int num_Passengers){
         --current_no_booked_seats;
     }
     cout << "Removed " << passengers_to_remove << " passengers." << endl;
-        return *this; 
+    return *this; 
 }
-
-

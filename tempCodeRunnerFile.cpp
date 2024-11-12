@@ -1,0 +1,1 @@
+g++ main.cpp Flight.cpp Passenger.cpp -o flight_management -std=c++11
