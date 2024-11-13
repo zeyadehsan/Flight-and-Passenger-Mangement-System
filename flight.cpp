@@ -73,15 +73,30 @@ void Flight::displaySeatingPlan(){
 }
 
 void Flight::addPassenger(string name){
-   if ( current_no_booked_seats < seating_capacity) { 
-           passengers_names[current_no_booked_seats] = name; 
-           current_no_booked_seats++;
-        } else {
-            cout << "No more space to add new passengers." << endl;
-        }
-        // reserve seat in seating plan 2d array 
-}
 
+        if (current_no_booked_seats < seating_capacity) { 
+        passengers_names[current_no_booked_seats] = name;
+        //increment current_no_booked_seats
+        ++current_no_booked_seats;
+        cout << "Added passenger: " <<name << endl;
+        // update seating plan 
+        bool seat_found = false;
+                for (int i = 0; i < rows && !seat_found; ++i) {
+                    for (int j = 0; j < seats_per_row && !seat_found; ++j) {
+                        if (seating_plan[i][j] == "O") {
+                            seating_plan[i][j] = "X"; // Mark as occupied
+                            seat_found = true;
+                            cout << "Assigned seat: Row " << i + 1 << ", Seat " << j + 1 << endl;
+                        }
+                    }
+                }
+        }
+        else {
+                cout << "No more space to add new passengers." << endl;
+            }
+    
+}
+ 
 void Flight::removePassenger(const string &name){
    int index = -1;
 
@@ -92,27 +107,34 @@ void Flight::removePassenger(const string &name){
                 break;
             }
         }
-
+        
         //If passenger is found, remove by shifting elements
         if (index != -1) {
             for (int i = index; i < current_no_booked_seats - 1; ++i) {
                 passengers_names[i] = passengers_names[i + 1]; 
             }
+            //update passenger plan after removal of object
+            int row = floor(index / 4);
+            int seat =  (index % 4) ;
+            seating_plan[row][seat] = "0";
             current_no_booked_seats--; 
+            
+
+            
             cout << "Passenger " << name << " has been removed." <<endl;
         } else {
             cout << "Passenger " << name << " not found." <<endl;
         }
-
+        
 
 }
 
 void Flight::displayFlightDetalils(){
-    cout<<" FLight Number: "<<no_of_flight<<endl;
-    cout<<" FLight Seating Capacity: "<<seating_capacity<<endl;
-    cout<<" FLight Current Number of Booked Seats : "<<current_no_booked_seats<<endl;
+    cout<<" Flight Number: "<<no_of_flight<<endl;
+    cout<<" Flight Seating Capacity: "<<seating_capacity<<endl;
+    cout<<" Flight Current Number of Booked Seats : "<<current_no_booked_seats<<endl;
     for(int i = 0; i<current_no_booked_seats;i++){
-        cout<<" FLight Passengers Name: "<<no_of_flight<<endl;
+        cout << " Flight Passengers Name: " << passengers_names[i]<<endl;
     }
     // for displaying seating plan
     for (int i = 0; i < rows; ++i) {
@@ -135,7 +157,7 @@ bool Flight::searchPassengerName(const string  name_Passenger){
 
 bool Flight::searchSeatNo(int row , int seat){
     if(seating_plan[row][seat] == "X"){
-        cout << "The seat at row " <<  row + 1 << " and seat " << seat + 1 << " is reserved." << endl;
+        // cout << "The seat at row " <<  row + 1 << " and seat " << seat + 1 << " is reserved." << endl;
         return true;
     }
     else{
@@ -146,9 +168,9 @@ bool Flight::searchSeatNo(int row , int seat){
 }
 // operator overloading Func
 ostream &operator << (ostream &strm, const Flight &obj){
-    strm<<" FLight Number: "<<obj.no_of_flight<<endl;
-    strm<<" FLight Seating Capacity: "<<obj.seating_capacity<<endl;
-    strm<<" FLight Current Number of Booked Seats : "<<obj.current_no_booked_seats<<endl;
+    strm<<" Flight Number: "<<obj.no_of_flight<<endl;
+    strm<<" Flight Seating Capacity: "<<obj.seating_capacity<<endl;
+    strm<<" Flight Current Number of Booked Seats : "<<obj.current_no_booked_seats<<endl;
     for(int i = 0; i<obj.seating_capacity;i++){
         strm<<" FLight Passengers Name: "<<obj.no_of_flight<<endl;
     }
@@ -237,3 +259,7 @@ Flight& Flight::operator-=(const int num_Passengers){
     cout << "Removed " << passengers_to_remove << " passengers." << endl;
     return *this; 
 }
+
+
+//add passenger/ remove object take object not classes
+//-= 
