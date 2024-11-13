@@ -16,6 +16,7 @@ class Flight{
         string * passengers_names;
         int rows, seats_per_row;
         string ** seating_plan;
+        Passenger ** passengers;
     public:
         //Three argument constructor
         Flight(int seat_c, int no_of_f, string flight_d);
@@ -27,8 +28,8 @@ class Flight{
 
         //Func
         void displaySeatingPlan();
-        void addPassenger(string name);
-        void removePassenger(const string &name);
+        void addPassenger(int num_passengers, Passenger * new_passengers[]);
+        void removePassenger(const Passenger & p);
 
         void displayFlightDetalils();
 

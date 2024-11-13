@@ -23,8 +23,6 @@ Flight::Flight(int seat_c, int no_of_f, string flight_d)
     }
 }
 
-
-
 //copy constructor
 Flight::Flight(const Flight & obj){
         no_of_flight = obj. no_of_flight;
@@ -57,6 +55,10 @@ Flight::~Flight(){
         delete[] seating_plan[i];  
     }
     delete[] seating_plan;
+    for (int i = 0; i < seating_capacity; ++i) {
+        delete[] passengers[i];  
+    }
+    delete[] passengers;
 
 }
 
@@ -72,37 +74,59 @@ void Flight::displaySeatingPlan(){
 
 }
 
-void Flight::addPassenger(string name){
+void Flight::addPassenger(int num_passengers, Passenger * new_passengers[]){
+       
+        if ( current_no_booked_seats + num_passengers > seating_capacity) {
+            int newCapacity = ( current_no_booked_seats + num_passengers) ;
+            Passenger ** newPassengerArray = new Passenger*[newCapacity];
 
-        if (current_no_booked_seats < seating_capacity) { 
-        passengers_names[current_no_booked_seats] = name;
-        //increment current_no_booked_seats
-        ++current_no_booked_seats;
-        cout << "Added passenger: " <<name << endl;
-        // update seating plan 
-        bool seat_found = false;
-                for (int i = 0; i < rows && !seat_found; ++i) {
-                    for (int j = 0; j < seats_per_row && !seat_found; ++j) {
-                        if (seating_plan[i][j] == "O") {
-                            seating_plan[i][j] = "X"; // Mark as occupied
-                            seat_found = true;
-                            cout << "Assigned seat: Row " << i + 1 << ", Seat " << j + 1 << endl;
+            // Copy over existing passengers
+            for (int i = 0; i <  current_no_booked_seats; ++i) {
+                newPassengerArray[i] = passengers[i];
+            }
+
+            delete[] passengers; 
+            passengers = newPassengerArray;
+            current_no_booked_seats = newCapacity;
+        }
+        
+        // Add new passengers
+        for (int i = 0; i < num_passengers; ++i) {
+            passengers_names[i]= new_passengers[i]->getName();
+            ++ current_no_booked_seats;
+        }
+
+        cout << "Added " << num_passengers << " passengers. Total booked seats: " << current_no_booked_seats << endl;
+        
+
+        // for parameter of string not object 
+        // if (current_no_booked_seats < seating_capacity) { 
+        // passengers_names[current_no_booked_seats] = name;
+        // //increment current_no_booked_seats
+        // ++current_no_booked_seats;
+        // cout << "Added passenger: " <<name << endl;
+        // // update seating plan 
+        for(int i = 0;i< num_passengers;i++){
+            bool seat_found = false;
+            for (int i = 0; i < rows && !seat_found; ++i) {
+                for (int j = 0; j < seats_per_row && !seat_found; ++j) {
+                    if (seating_plan[i][j] == "O") {
+                                seating_plan[i][j] = "X"; 
+                                seat_found = true;
+                                cout << "Assigned seat: Row " << i + 1 << ",Seat " << j + 1 << endl;
+                            }
                         }
                     }
-                }
-        }
-        else {
-                cout << "No more space to add new passengers." << endl;
             }
-    
-}
+        
+        }
  
-void Flight::removePassenger(const string &name){
+ void Flight::removePassenger(const Passenger & p){
    int index = -1;
 
-        //Find the passenger's index
+        //ind the passenger's index
         for (int i = 0; i < current_no_booked_seats; ++i) {
-            if (passengers_names[i] == name) {
+            if (passengers_names[i] == p.getName()) {
                 index = i;
                 break;
             }
@@ -121,14 +145,13 @@ void Flight::removePassenger(const string &name){
             
 
             
-            cout << "Passenger " << name << " has been removed." <<endl;
+            cout << "Passenger " << p.getName() << " has been removed." <<endl;
         } else {
-            cout << "Passenger " << name << " not found." <<endl;
+            cout << "Passenger " << p.getName() << " not found." <<endl;
         }
         
 
 }
-
 void Flight::displayFlightDetalils(){
     cout<<" Flight Number: "<<no_of_flight<<endl;
     cout<<" Flight Seating Capacity: "<<seating_capacity<<endl;
@@ -235,13 +258,13 @@ Flight& Flight::operator+=( Passenger& passenger){
 Flight& Flight::operator--(int){
     
     if(current_no_booked_seats > 0){
-        passengers_names[current_no_booked_seats - 1] = ""; 
+        passengers_names[current_no_booked_seats -1 ] = ""; 
         
         int row = floor( current_no_booked_seats/ 4);
-        int seat =  (current_no_booked_seats % 4) ;
+        int seat =  (current_no_booked_seats % 4) - 1 ;
         seating_plan[row][seat] = "0";
         --current_no_booked_seats;
-        string removedPassenger = passengers_names[current_no_booked_seats - 1];
+        string removedPassenger = passengers_names[current_no_booked_seats + 1];
         cout << "Removed Last passenger: " << removedPassenger << endl;
         //update seating plan 
     }
@@ -261,7 +284,7 @@ Flight& Flight::operator-=(const int num_Passengers){
         passengers_names[i] = ""; 
         //update seating plan for after each value of i 
         int row = floor( current_no_booked_seats/ 4);
-        int seat =  (current_no_booked_seats % 4) ;
+        int seat =  (current_no_booked_seats % 4) - 1 ;
         seating_plan[row][seat] = "0";
         --current_no_booked_seats;
     }

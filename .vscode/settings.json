@@ -59,6 +59,10 @@
   "files.associations": {
     "*.cpp": "cpp",
     "iostream": "cpp",
-    "typeinfo": "cpp"
+    "typeinfo": "cpp",
+    "istream": "cpp",
+    "locale": "cpp",
+    "tuple": "cpp",
+    "variant": "cpp"
   }
 }
