@@ -236,9 +236,14 @@ Flight& Flight::operator--(int){
     
     if(current_no_booked_seats > 0){
         passengers_names[current_no_booked_seats - 1] = ""; 
+        
+        int row = floor( current_no_booked_seats/ 4);
+        int seat =  (current_no_booked_seats % 4) ;
+        seating_plan[row][seat] = "0";
         --current_no_booked_seats;
         string removedPassenger = passengers_names[current_no_booked_seats - 1];
         cout << "Removed Last passenger: " << removedPassenger << endl;
+        //update seating plan 
     }
     else {
         cout << "No passengers to remove!" << endl;
@@ -254,12 +259,19 @@ Flight& Flight::operator-=(const int num_Passengers){
     int passengers_to_remove = min(num_Passengers, current_no_booked_seats);
     for(int i = (current_no_booked_seats - passengers_to_remove);i<current_no_booked_seats;i++){
         passengers_names[i] = ""; 
+        //update seating plan for after each value of i 
+        int row = floor( current_no_booked_seats/ 4);
+        int seat =  (current_no_booked_seats % 4) ;
+        seating_plan[row][seat] = "0";
         --current_no_booked_seats;
     }
+    
     cout << "Removed " << passengers_to_remove << " passengers." << endl;
+
+
     return *this; 
 }
 
 
 //add passenger/ remove object take object not classes
-//-= 
+//-=  ,, -- correct output for seating plan

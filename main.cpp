@@ -5,26 +5,6 @@
 
 
 
-// #include<iostream>
-// #include"flight.h"
-// #include"passenger.h"
-// using namespace std;
-
-
-// int main(){
-//     Flight F1(16,101,"Egypt");
-//     Passenger P1("Zeyad",1);
-//     F1.addPassenger("Zeyad");
-//     F1.addPassenger("Ahmed");
-//     F1.displayFlightDetalils();
-
-
-    
-
-
-//     return 0;
-// }
-
 #include<iostream>
 #include"flight.h"
 #include"passenger.h"
