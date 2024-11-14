@@ -1,6 +1,11 @@
+//Zeyad Ahmed Ehsan 20236041
+//Mo'men Osman Mohammed 20236106
+
+
 #ifndef FLIGHT_H
 #define FLIGHT_H
 #include<iostream>
+//#include<cmath> for clion needed
 #include "passenger.h"
 using namespace std;
 

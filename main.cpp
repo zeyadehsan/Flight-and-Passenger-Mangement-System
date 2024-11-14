@@ -1,24 +1,28 @@
+//Zeyad Ahmed Ehsan 20236041
+//Mo'men Osman Mohammed 20236106
+
 //TO RUN CODE 
-//MAC or linux
+//MAC or linux on visual studio code
 //g++ main.cpp Flight.cpp Passenger.cpp -o flight_management -std=c++11
 //./flight_management
 
 
+
 //ALL functions in flight Class
 
-// copy const
-//displaySeatingPlan #done
-//addPassenger #done
-//removePassenger #done
-//searchPassengerName #done
-//searchSeatNo #done 
- 
- //ALL functions in Passenger Class
-//displayPassengerDetalils #done
-//istream& operator >> #done
-//static int getTotalPassengers(); #done
-
-
+    //copy const 
+    //Display FLight details #done
+    //displaySeatingPlan #done 
+    //      "O" means Open, "X" means reserved, "0" means was Reserved but removed
+    //addPassenger #done
+    //removePassenger #done
+    //searchPassengerName #done
+    //searchSeatNo #done 
+    
+//ALL functions in Passenger Class
+    //displayPassengerDetalils #done
+    //istream& operator >> #done
+    //static int getTotalPassengers(); #done
 
 
 #include<iostream>
@@ -31,8 +35,9 @@ int main() {
     Flight F1(16, 101, "Egypt");
     Flight F2(12, 103, "Blaban");
     
-
     
+    
+
  
     //creat Passenger objects
     Passenger P0("Zeyad", 1);
@@ -42,7 +47,7 @@ int main() {
     // Test operator overloading functions
 
 
-    //using += operator overloader (1 out 4)operator overloaders
+    //using += operator overloader (1 out 6)operator overloaders
     // adding P0 and P1 to F1 
     
     F1 += P0;
@@ -51,20 +56,28 @@ int main() {
     F1.displayFlightDetalils();
 
 
-    //using += operator overloader (2 out 4)operator overloaders
+    //using += operator overloader (2 out 6)operator overloaders
     //adding a new row of seats
     ++F1;
     F1.displayFlightDetalils();
 
-    //using -- operator overloader (3 out 4)operator overloaders
+    //using -- operator overloader (3 out 6)operator overloaders
     //should remove P1
     F1--;
-    F1.displayFlightDetalils();
+   
+     F1.displayFlightDetalils();
  
-    //using -= operator overloader (4 out 4)operator overloaders
+    //using -= operator overloader (4 out 6)operator overloaders
     //should remove last 1 passenger (P0)
     F1 -= 1;
-    F1.displayFlightDetalils();
+    //using << operator overloader (5 out 6)operator overloaders
+    cout << F1 ;
+
+    Passenger p; 
+    // Use the overloaded >> operator to input passenger details
+    cin >> p;
+    // Display the passenger details using a method or by printing directly
+    p.displayPassengerDetalils();
 
  
 
@@ -92,7 +105,6 @@ int main() {
     //Seating Plan 
     F1.displaySeatingPlan();
 
- 
 
     // Test searchPassengerName function
     cout << "Searching for Osman: " << (F1.searchPassengerName("Osman") ? "Found" : "Not Found") << endl;
@@ -105,7 +117,13 @@ int main() {
 
     // Test Passenger class functions
     P5.displayPassengerDetalils();
-    cout << "Total Passengers: " << Passenger::getTotalPassengers() << endl;
+    cout << "Total Passengers: " << Passenger::getTotalPassengers()<< " Created " << endl;
+
+    // COPY CONSTRUCTOR
+    Flight copiedFlight = F2;
+    cout << "\nCopied Flight Details:\n";
+    copiedFlight.displayFlightDetalils();
+ 
 
    return 0;
 }

@@ -1,3 +1,6 @@
+//Zeyad Ahmed Ehsan 20236041
+//Mo'men Osman Mohammed 20236106
+
 
 #ifndef PASSENGER_H
 #define PASSENGER_H
@@ -21,10 +24,13 @@ class Passenger{
         ~Passenger();
         //Func
         void displayPassengerDetalils();
+        static int getTotalPassengers();
+        
         // func addded to return passenger name for += overloader func
+        //Function from Flight
         friend istream& operator >> (istream & strm ,Passenger & p);
         friend bool searchPassengerName();
-        static int getTotalPassengers();
+        
 
 
         //not relevant to Assignment function. made done for easier access (needed for code to run but redundant)

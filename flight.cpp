@@ -1,4 +1,8 @@
+//Zeyad Ahmed Ehsan 20236041
+//Mo'men Osman Mohammed 20236106
+
 #include<iostream>
+
 #include "flight.h"
 #include "passenger.h"
 using namespace std;
@@ -30,17 +34,23 @@ Flight::Flight(const Flight & obj){
         current_no_booked_seats = obj.current_no_booked_seats;
         flight_destination = obj.flight_destination;
         dep_time_zone = obj. dep_time_zone;
-
+        rows = obj.rows;
+        seats_per_row = obj.seats_per_row;
+     
+    
+    
         //passengers_names copying
+        passengers_names = new string[seating_capacity];
         for(int i = 0;i<current_no_booked_seats;i++){
             passengers_names[i]=obj.passengers_names[i];
         }
 
         //seating_plan copying
-        rows = obj.rows;
-        seats_per_row = obj.seats_per_row;
-        for (int i = 0; i < rows; ++i) {
-            for (int j = 0; j < seats_per_row; ++j) {
+  
+        seating_plan = new string*[rows];
+        for (int i = 0; i < rows ; ++i) {
+            seating_plan[i] = new string[seats_per_row];
+            for (int j = 0; j < seats_per_row  ; ++j) {
               seating_plan[i][j]=obj.seating_plan[i][j];
             }
         }
@@ -194,14 +204,13 @@ ostream &operator << (ostream &strm, const Flight &obj){
     strm<<" Flight Number: "<<obj.no_of_flight<<endl;
     strm<<" Flight Seating Capacity: "<<obj.seating_capacity<<endl;
     strm<<" Flight Current Number of Booked Seats : "<<obj.current_no_booked_seats<<endl;
-    for(int i = 0; i<obj.seating_capacity;i++){
-        strm<<" FLight Passengers Name: "<<obj.no_of_flight<<endl;
-    }
+   
     // for displaying seating plan
     for (int i = 0; i < obj.rows; ++i) {
         for (int j = 0; j < obj.seats_per_row; ++j) {
             strm<<obj.seating_plan[i][j];
         }
+        cout<<endl;
     }
     return strm;
    
@@ -265,7 +274,7 @@ Flight& Flight::operator--(int){
         seating_plan[row][seat] = "0";
         --current_no_booked_seats;
         string removedPassenger = passengers_names[current_no_booked_seats + 1];
-        cout << "Removed Last passenger: " << removedPassenger << endl;
+        cout << "Removed Last passenger. " << removedPassenger << endl;
         //update seating plan 
     }
     else {
@@ -296,5 +305,3 @@ Flight& Flight::operator-=(const int num_Passengers){
 }
 
 
-//add passenger/ remove object take object not classes
-//-=  ,, -- correct output for seating plan

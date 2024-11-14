@@ -1,2 +1,3 @@
- F1 += P0;
-    F1 += P1;
+    //displayPassengerDetalils #done
+    //istream& operator >> #done
+    //static int getTotalPassengers(); #done
